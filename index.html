@@ -1327,7 +1327,7 @@
                         <div class="stat-label">AI Projects Delivered</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number counter" data-target="530 +" data-suffix="+">0</div>
+                        <div class="stat-number counter" data-target="530" data-suffix="+">0</div>
                         <div class="stat-label">LeetCode Problems Solved</div>
                     </div>
                     <div class="stat">
@@ -1807,36 +1807,46 @@
         
         // Counter animation
         function animateCounter(element) {
-            const target = parseInt(element.getAttribute('data-target'));
-            const duration = 2000;
-            const step = target / (duration / 16);
-            let current = 0;
-            
-            const timer = setInterval(() => {
-                current += step;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                element.textContent = Math.floor(current);
-            }, 16);
-        }
-        
-        // Typing effect for hero subtitle
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
+        const target = parseInt(element.getAttribute('data-target'));
+        const suffix = element.getAttribute('data-suffix') || ''; // fixed
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
             }
-            
-            type();
+            element.textContent = Math.floor(current) + suffix; // append suffix
+        }, 16);
+    }
+
+    // Typing effect for hero subtitle
+    function typeWriter(element, text, speed = 100) {
+        let i = 0;
+        element.innerHTML = '';
+
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
         }
+
+        type();
+    }
+
+    // Initialize typing effect
+    setTimeout(() => {
+        const subtitleElement = document.querySelector('.hero-subtitle');
+        if (subtitleElement) {
+            const originalText = subtitleElement.textContent;
+            typeWriter(subtitleElement, originalText, 80);
+        }
+    }, 1500);
         
         // Initialize typing effect
         setTimeout(() => {
