@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Kaushal Shukla</title>
+  <meta name="description" content="ML engineer based in India. Currently at NexusLink Services. Building production LLM, RAG and audio systems.">
+  <meta name="theme-color" content="#f7f6f2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e1116'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-family='ui-monospace,Menlo,monospace' font-size='14' font-weight='600' fill='%23f7f6f2'%3Eks%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="/">Kaushal Shukla<span class="dot">.</span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/work/">Work</a>
+        <a href="/about/" aria-current="page">About</a>
+        <a href="/writing/">Writing</a>
+        <a href="/uses/">Uses</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Intro -->
+    <section class="hero wrap">
+      <p class="eyebrow reveal">// about</p>
+      <h1 class="reveal" style="margin-top:18px;font-size:clamp(2.5rem,6vw,4.5rem)">
+        Engineering AI<br>that earns its keep<br>in production.
+      </h1>
+    </section>
+
+    <!-- Bio + portrait -->
+    <section class="section wrap">
+      <div class="section-head">
+        <p class="eyebrow reveal">// 01 — bio</p>
+        <div class="prose reveal">
+          <p>
+            I'm Kaushal — an ML engineer with around two years of building production AI systems. I'm currently a data scientist at <a href="https://www.linkedin.com/company/nexuslink-services" rel="noopener" target="_blank">NexusLink Services</a>, where I work across LLM applications, RAG, and audio ML.
+          </p>
+          <p>
+            Most of what I do sits between research and infrastructure. I like the part of the job where a model finally meets real users, with all the latency, cost and reliability constraints that come with it. I write a lot of FastAPI, a lot of evaluation harnesses, and a healthy amount of glue code.
+          </p>
+          <p>
+            Before this I interned at <a href="https://www.linkedin.com/company/riveredge-analytics-pvt-ltd" rel="noopener" target="_blank">RiverEdge Analytics</a>, where I built a multimodal invoice-extraction pipeline. I've also shipped a handful of personal projects — they're on <a href="/work/">the work page</a>.
+          </p>
+          <p>
+            Outside of work I solve <a href="https://leetcode.com/kaushvl" rel="noopener" target="_blank">LeetCode</a> for fun (530-ish so far), read more ML papers than I can keep up with, and tinker with on-device inference.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="section wrap">
+      <div class="section-head">
+        <p class="eyebrow reveal">// 02 — experience</p>
+        <div>
+          <h2 class="reveal">What I've worked on, where.</h2>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline__item reveal">
+          <div class="timeline__when">JUN 2024 — NOW</div>
+          <div>
+            <h3 class="timeline__role">Data Scientist</h3>
+            <p class="timeline__org">NexusLink Services · India</p>
+            <div class="timeline__detail">
+              <p>Work spans RAG, agents, audio ML and automation. Most projects ship to production behind FastAPI services.</p>
+              <ul>
+                <li>Enterprise RAG with hybrid search and reranking — ~50% lower query latency, ~35% retrieval efficiency lift.</li>
+                <li>Deployed LLaMA Maverick on Oracle Cloud with vLLM for private inference.</li>
+                <li>Domain-specific chatbot with Text-to-SQL/NoSQL for natural-language access to enterprise data.</li>
+                <li>Real-time audio noise reduction with DeepFilterNet — call-clarity improvements around ~40%.</li>
+                <li>Speech transcription and speaker diarization with NVIDIA NeMo and OpenAI Whisper.</li>
+                <li>LinkedIn post classification + AI-personalised outreach — ~70% less manual BDE effort.</li>
+                <li>Productivity assistant integrating email, calendar and Trello workflows.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="timeline__item reveal">
+          <div class="timeline__when">JAN — APR 2024</div>
+          <div>
+            <h3 class="timeline__role">AI/ML Intern</h3>
+            <p class="timeline__org">RiverEdge Analytics · India</p>
+            <div class="timeline__detail">
+              <p>Built a multimodal document-processing pipeline end-to-end.</p>
+              <ul>
+                <li>Invoice extraction with OCR + GPT-4 Vision — ~80% less manual entry.</li>
+                <li>FastAPI backend with MySQL for real-time processing.</li>
+                <li>Prompt-engineering framework that lifted extraction accuracy on hard layouts.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Tech inventory -->
+    <section class="section wrap">
+      <div class="section-head">
+        <p class="eyebrow reveal">// 03 — stack</p>
+        <div>
+          <h2 class="reveal">The stack I actually reach for.</h2>
+          <p class="lede reveal">Not a list of every framework I've Googled — just the tools I use often enough to have opinions.</p>
+        </div>
+      </div>
+
+      <div class="inventory reveal">
+        <div>
+          <h4>languages</h4>
+          <ul><li>Python</li><li>SQL</li><li>JavaScript</li><li>Bash</li></ul>
+        </div>
+        <div>
+          <h4>ml / dl</h4>
+          <ul><li>PyTorch</li><li>Transformers</li><li>scikit-learn</li><li>XGBoost</li></ul>
+        </div>
+        <div>
+          <h4>llm / rag</h4>
+          <ul><li>vLLM</li><li>LangChain</li><li>LlamaIndex</li><li>Qdrant / Pinecone</li></ul>
+        </div>
+        <div>
+          <h4>audio</h4>
+          <ul><li>Whisper</li><li>NVIDIA NeMo</li><li>DeepFilterNet</li></ul>
+        </div>
+        <div>
+          <h4>backend</h4>
+          <ul><li>FastAPI</li><li>PostgreSQL</li><li>MongoDB</li><li>Redis</li></ul>
+        </div>
+        <div>
+          <h4>infra</h4>
+          <ul><li>Docker</li><li>Kubernetes</li><li>AWS</li><li>Oracle Cloud</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="section wrap">
+      <div class="section-head">
+        <p class="eyebrow reveal">// 04 — how i work</p>
+        <div>
+          <h2 class="reveal">A few opinions, kept short.</h2>
+        </div>
+      </div>
+
+      <div class="prose reveal">
+        <ul>
+          <li><strong>Ship measurable impact, not demos.</strong> A working notebook is a third of the job.</li>
+          <li><strong>Production from day one.</strong> Versioning, monitoring, fallbacks — built in, not bolted on.</li>
+          <li><strong>Smallest model that meets the bar.</strong> Cost and latency are first-class metrics, not afterthoughts.</li>
+          <li><strong>Prompts and evals are code.</strong> They get reviewed, versioned and tested like everything else.</li>
+          <li><strong>Write things down.</strong> Future-me is the most common reader of any system I build.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section wrap">
+      <div class="reveal">
+        <p class="eyebrow" style="margin-bottom:16px">// say hi</p>
+        <h2 style="max-width:18ch">Have a problem worth solving?</h2>
+        <p style="color:var(--muted);max-width:56ch;margin-top:14px">
+          I'm open to senior ML engineer roles, AI architecture work, and the occasional thoughtful collaboration. Easiest way to reach me is email.
+        </p>
+        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn" href="mailto:kaushal-shukla@outlook.com">kaushal-shukla@outlook.com <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href="/images/Kaushal_Resume_AiMl.pdf" download>Resume (PDF)</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <div class="site-footer__inner">
+      <div>
+        <p class="eyebrow" style="margin-bottom:14px">// elsewhere</p>
+        <div class="links">
+          <a href="https://github.com/kaushvl" rel="me noopener" target="_blank">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/kshl/" rel="me noopener" target="_blank">LinkedIn ↗</a>
+          <a href="https://leetcode.com/kaushvl" rel="me noopener" target="_blank">LeetCode ↗</a>
+          <a href="https://twitter.com/kaushvl" rel="me noopener" target="_blank">X ↗</a>
+          <a href="mailto:kaushal-shukla@outlook.com">Email</a>
+        </div>
+      </div>
+      <div class="meta">
+        <div>© <span data-year>2026</span> Kaushal Shukla</div>
+        <div style="margin-top:4px">built quietly · no frameworks</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/site.js" defer></script>
+</body>
+</html>

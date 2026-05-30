@@ -1,0 +1,93 @@
+{
+  "projects": [
+    {
+      "slug": "enterprise-rag",
+      "title": "Enterprise RAG & Text-to-SQL",
+      "year": "2025",
+      "role": "Data Scientist · NexusLink Services",
+      "blurb": "A production retrieval system over heterogeneous enterprise data — hybrid search, reranking, and a natural-language interface that translates questions into SQL/NoSQL queries.",
+      "tags": ["rag", "llm", "backend"],
+      "stack": ["Python", "FastAPI", "vLLM", "LLaMA", "Qdrant", "PostgreSQL", "Oracle Cloud"],
+      "links": { "external": null, "repo": null },
+      "outcomes": [
+        { "num": "~50%", "label": "lower query latency" },
+        { "num": "~35%", "label": "retrieval efficiency lift" }
+      ]
+    },
+    {
+      "slug": "audio-noise-reduction",
+      "title": "Audio noise reduction & diarization pipeline",
+      "year": "2024",
+      "role": "Data Scientist · NexusLink Services",
+      "blurb": "Real-time pipeline that cleans noisy calls and produces speaker-attributed transcripts at scale.",
+      "tags": ["audio", "ml", "backend"],
+      "stack": ["Python", "DeepFilterNet", "NVIDIA NeMo", "Whisper", "FastAPI"],
+      "links": { "external": null, "repo": null },
+      "outcomes": [
+        { "num": "~40%", "label": "call-clarity improvement" },
+        { "num": "real-time", "label": "concurrent streams" }
+      ]
+    },
+    {
+      "slug": "smart-voicemail-llm",
+      "title": "Smart voicemail with LLM",
+      "year": "2024",
+      "role": "Personal project",
+      "blurb": "Transcribes, categorises and pulls action items from voicemail so you can act on the inbox without listening.",
+      "tags": ["llm", "audio"],
+      "stack": ["Python", "Whisper", "OpenAI"],
+      "links": { "external": null, "repo": "https://github.com/Kaushvl/SmartVoiceMailUsingLLM" },
+      "outcomes": []
+    },
+    {
+      "slug": "employee-churn-predictor",
+      "title": "Employee churn predictor",
+      "year": "2023",
+      "role": "Personal project",
+      "blurb": "Tabular ML model that surfaces attrition risk so HR can act before people quietly leave.",
+      "tags": ["ml"],
+      "stack": ["Python", "XGBoost", "MongoDB", "Flask"],
+      "links": { "external": null, "repo": "https://github.com/Kaushvl/employee_churn_predictor" },
+      "outcomes": [
+        { "num": "87.3%", "label": "test accuracy" }
+      ]
+    },
+    {
+      "slug": "ai-productivity-assistant",
+      "title": "Voice-first productivity assistant",
+      "year": "2023",
+      "role": "Personal project",
+      "blurb": "A voice-activated GPT-4 assistant that reads natural-language commands, schedules, and handles small workflows.",
+      "tags": ["llm", "audio"],
+      "stack": ["Python", "OpenAI", "SpeechRecognition", "FastAPI", "PostgreSQL"],
+      "links": { "external": null, "repo": "https://github.com/Kaushvl/AIBasedTodoAssistant" },
+      "outcomes": []
+    },
+    {
+      "slug": "invoice-extraction",
+      "title": "Invoice extraction with GPT-4 Vision",
+      "year": "2024",
+      "role": "AI/ML Intern · RiverEdge Analytics",
+      "blurb": "Multimodal pipeline that reads PDFs and images of invoices and produces structured rows ready for the database.",
+      "tags": ["llm", "ml", "backend"],
+      "stack": ["Python", "GPT-4 Vision", "OCR", "FastAPI", "MySQL"],
+      "links": { "external": null, "repo": null },
+      "outcomes": [
+        { "num": "~80%", "label": "less manual entry" }
+      ]
+    },
+    {
+      "slug": "linkedin-bde-automation",
+      "title": "LinkedIn classification & outreach automation",
+      "year": "2024",
+      "role": "Data Scientist · NexusLink Services",
+      "blurb": "Classifies LinkedIn posts, extracts hiring signals, and drafts personalised outreach — wrapped in a small BDE workflow.",
+      "tags": ["llm", "automation"],
+      "stack": ["Python", "Phantombuster", "OpenAI", "FastAPI"],
+      "links": { "external": null, "repo": null },
+      "outcomes": [
+        { "num": "~70%", "label": "less manual outreach" }
+      ]
+    }
+  ]
+}

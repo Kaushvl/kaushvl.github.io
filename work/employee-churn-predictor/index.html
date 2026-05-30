@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Employee churn predictor — Kaushal Shukla</title>
+  <meta name="description" content="A tabular ML model that surfaces attrition risk early — built as a teaching project, ended up genuinely useful.">
+  <meta name="theme-color" content="#f7f6f2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e1116'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-family='ui-monospace,Menlo,monospace' font-size='14' font-weight='600' fill='%23f7f6f2'%3Eks%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="/">Kaushal Shukla<span class="dot">.</span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/work/" aria-current="page">Work</a>
+        <a href="/about/">About</a>
+        <a href="/writing/">Writing</a>
+        <a href="/uses/">Uses</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="case">
+      <header class="case__head reveal">
+        <a class="case__back" href="/work/">← all work</a>
+        <p class="eyebrow" style="margin-top:14px">// case study · 2023</p>
+        <h1 class="case__title">Employee churn predictor</h1>
+        <p class="case__lede">
+          A tabular model that scores attrition risk per employee so HR teams can act before someone quietly checks out.
+        </p>
+        <dl class="case__meta">
+          <div><dt>Role</dt><dd>Personal project</dd></div>
+          <div><dt>Year</dt><dd>2023</dd></div>
+          <div><dt>Status</dt><dd>Open source</dd></div>
+          <div><dt>Stack</dt><dd>Python · XGBoost · MongoDB · Flask</dd></div>
+          <div><dt>Repo</dt><dd><a href="https://github.com/Kaushvl/employee_churn_predictor" rel="noopener" target="_blank">github.com/Kaushvl/employee_churn_predictor ↗</a></dd></div>
+        </dl>
+      </header>
+
+      <div class="case__body">
+        <div class="prose reveal">
+          <p>
+            Classic supervised problem — predict whether an employee leaves in the next N months from tenure, role, comp, manager and engagement features. Most of the work was feature engineering and dealing with leakage; a few seemingly innocent fields were essentially the label in disguise.
+          </p>
+          <p>
+            XGBoost landed at <strong>87.3% test accuracy</strong>, with a precision/recall trade-off tuned for HR's actual use case (false positives are cheap, false negatives miss the people you cared about). A small Flask app wraps the model with a per-employee risk view and the top three contributing features per prediction.
+          </p>
+          <div class="case__outcomes">
+            <div class="case__outcome"><div class="num tnum">87.3%</div><div class="label">test accuracy</div></div>
+            <div class="case__outcome"><div class="num tnum">top 3</div><div class="label">explainers per prediction</div></div>
+          </div>
+          <p style="margin-top:24px">
+            Code on <a href="https://github.com/Kaushvl/employee_churn_predictor" rel="noopener" target="_blank">GitHub</a>.
+          </p>
+        </div>
+      </div>
+
+      <nav class="case__next">
+        <a href="/work/smart-voicemail-llm/">← smart voicemail</a>
+        <a href="/work/ai-productivity-assistant/">next: productivity assistant →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer wrap">
+    <div class="site-footer__inner">
+      <div>
+        <p class="eyebrow" style="margin-bottom:14px">// elsewhere</p>
+        <div class="links">
+          <a href="https://github.com/kaushvl" rel="me noopener" target="_blank">GitHub ↗</a>
+          <a href="mailto:kaushal-shukla@outlook.com">Email</a>
+        </div>
+      </div>
+      <div class="meta">
+        <div>© <span data-year>2026</span> Kaushal Shukla</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "posts": [
+    {
+      "slug": "rag-eval-notes",
+      "title": "Notes on evaluating RAG systems in production",
+      "date": "2025-09-14",
+      "read": "8 min",
+      "status": "draft"
+    },
+    {
+      "slug": "shipping-vllm-on-oracle",
+      "title": "Shipping vLLM on Oracle Cloud — a quiet how-to",
+      "date": "2025-07-02",
+      "read": "12 min",
+      "status": "draft"
+    }
+  ]
+}

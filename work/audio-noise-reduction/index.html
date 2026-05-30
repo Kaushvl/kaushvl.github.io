@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audio noise reduction & diarization — Kaushal Shukla</title>
+  <meta name="description" content="A real-time audio pipeline that cleans noisy calls and produces speaker-attributed transcripts at scale.">
+  <meta name="theme-color" content="#f7f6f2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e1116'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-family='ui-monospace,Menlo,monospace' font-size='14' font-weight='600' fill='%23f7f6f2'%3Eks%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="/">Kaushal Shukla<span class="dot">.</span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/work/" aria-current="page">Work</a>
+        <a href="/about/">About</a>
+        <a href="/writing/">Writing</a>
+        <a href="/uses/">Uses</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="case">
+      <header class="case__head reveal">
+        <a class="case__back" href="/work/">← all work</a>
+        <p class="eyebrow" style="margin-top:14px">// case study · 2024</p>
+        <h1 class="case__title">Audio noise reduction<br>&amp; diarization</h1>
+        <p class="case__lede">
+          A real-time pipeline that cleans noisy phone calls and produces speaker-attributed transcripts at scale — built for support workflows where every word matters.
+        </p>
+        <dl class="case__meta">
+          <div><dt>Role</dt><dd>Data Scientist · NexusLink</dd></div>
+          <div><dt>Year</dt><dd>2024</dd></div>
+          <div><dt>Status</dt><dd>Shipped</dd></div>
+          <div><dt>Stack</dt><dd>Python · DeepFilterNet · NVIDIA NeMo · Whisper · FastAPI</dd></div>
+        </dl>
+      </header>
+
+      <div class="case__body">
+        <div class="prose reveal">
+          <h3>The problem</h3>
+          <p>
+            Call transcripts were unusable. Most of our recordings were noisy — background chatter, low-quality codecs, multiple speakers talking over each other — and the downstream NLP that depended on them (intent classification, summarisation, action extraction) was producing garbage in proportion to the garbage going in. The team needed clean audio and accurate speaker attribution, both in close to real time, across many concurrent streams.
+          </p>
+
+          <h3>Goals</h3>
+          <ul>
+            <li>Noticeable, measurable improvement in audio quality on real calls.</li>
+            <li>Speaker-attributed transcripts, not just plain text.</li>
+            <li>Pipeline that can handle many concurrent streams without falling over.</li>
+            <li>Latency low enough that downstream systems can act while the call is still happening.</li>
+          </ul>
+
+          <h3>Approach</h3>
+          <p>
+            The pipeline is three stages — enhance, transcribe, diarize — running as separate workers and stitched together with a small orchestrator. Splitting them up made each one independently debuggable and let us scale them on different schedules.
+          </p>
+          <p>
+            For <strong>noise reduction</strong> I used DeepFilterNet, a low-latency speech-enhancement model that runs well on CPU. The lift in subjective and objective quality was significant — about a ~40% improvement in call clarity by our internal scoring.
+          </p>
+          <p>
+            For <strong>transcription</strong> I ran <a href="https://github.com/openai/whisper" rel="noopener" target="_blank">OpenAI Whisper</a> with a small decoding tweaks for our domain vocabulary. For <strong>diarization</strong> I used NVIDIA NeMo, which gave us reliable speaker boundaries even on overlapping speech.
+          </p>
+          <p>
+            The orchestrator pairs Whisper segments with NeMo speaker turns, resolves the edges (Whisper and NeMo disagree on segment boundaries roughly 5–8% of the time), and emits a clean stream of <code>{speaker, start, end, text}</code> events that downstream services subscribe to.
+          </p>
+
+          <h3>Scaling decisions</h3>
+          <ul>
+            <li>Enhancement runs on CPU workers because DeepFilterNet is light enough that GPUs are wasted on it.</li>
+            <li>Transcription and diarization share a pool of GPU workers with priority queues — short calls jump ahead of long ones so latency stays predictable.</li>
+            <li>Backpressure flows the other way: when GPU workers slow down, the enhancement queue holds rather than drops audio.</li>
+            <li>Everything goes through FastAPI services so it's all one auth model and one observability stack.</li>
+          </ul>
+
+          <h3>Outcomes</h3>
+          <div class="case__outcomes">
+            <div class="case__outcome"><div class="num tnum">~40%</div><div class="label">call-clarity improvement</div></div>
+            <div class="case__outcome"><div class="num tnum">real-time</div><div class="label">concurrent streams</div></div>
+            <div class="case__outcome"><div class="num tnum">3 stages</div><div class="label">independently scalable</div></div>
+          </div>
+
+          <h3>What I'd do differently</h3>
+          <p>
+            I'd invest in a small in-house quality metric earlier. We leaned on standard speech-quality metrics (PESQ, STOI) for too long when what we actually cared about was downstream task accuracy. A simple "did the intent classifier get this one right?" was a more honest signal than any signal-processing score.
+          </p>
+
+          <blockquote>
+            Most of the work in real-time ML isn't the model. It's the queueing, the backpressure, and the boring decisions about which thing waits when something else is slow.
+          </blockquote>
+        </div>
+      </div>
+
+      <nav class="case__next">
+        <a href="/work/enterprise-rag/">← enterprise rag</a>
+        <a href="/work/smart-voicemail-llm/">next: smart voicemail →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer wrap">
+    <div class="site-footer__inner">
+      <div>
+        <p class="eyebrow" style="margin-bottom:14px">// elsewhere</p>
+        <div class="links">
+          <a href="https://github.com/kaushvl" rel="me noopener" target="_blank">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/kshl/" rel="me noopener" target="_blank">LinkedIn ↗</a>
+          <a href="mailto:kaushal-shukla@outlook.com">Email</a>
+        </div>
+      </div>
+      <div class="meta">
+        <div>© <span data-year>2026</span> Kaushal Shukla</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/site.js" defer></script>
+</body>
+</html>

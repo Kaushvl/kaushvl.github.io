@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enterprise RAG & Text-to-SQL — Kaushal Shukla</title>
+  <meta name="description" content="A production retrieval system over heterogeneous enterprise data, with a natural-language query layer.">
+  <meta name="theme-color" content="#f7f6f2">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e1116'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-family='ui-monospace,Menlo,monospace' font-size='14' font-weight='600' fill='%23f7f6f2'%3Eks%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="wordmark" href="/">Kaushal Shukla<span class="dot">.</span></a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/work/" aria-current="page">Work</a>
+        <a href="/about/">About</a>
+        <a href="/writing/">Writing</a>
+        <a href="/uses/">Uses</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="case">
+      <header class="case__head reveal">
+        <a class="case__back" href="/work/">← all work</a>
+        <p class="eyebrow" style="margin-top:14px">// case study · 2025</p>
+        <h1 class="case__title">Enterprise RAG &amp; Text-to-SQL</h1>
+        <p class="case__lede">
+          A retrieval system over a messy enterprise corpus, with a natural-language layer that knows when to read documents and when to talk to a database.
+        </p>
+        <dl class="case__meta">
+          <div><dt>Role</dt><dd>Data Scientist · NexusLink</dd></div>
+          <div><dt>Year</dt><dd>2025</dd></div>
+          <div><dt>Status</dt><dd>Shipped</dd></div>
+          <div><dt>Stack</dt><dd>Python · FastAPI · vLLM · LLaMA · Qdrant · PostgreSQL · Oracle Cloud</dd></div>
+        </dl>
+      </header>
+
+      <div class="case__body">
+        <div class="prose reveal">
+          <h3>The problem</h3>
+          <p>
+            Teams across the business were sitting on years of documents, dashboards and operational data in different shapes — PDFs, Confluence pages, ticket histories, structured tables. Answering even a simple question often meant pinging three people and grepping a wiki. The existing search was keyword-based and routinely missed the right document, and nobody wanted to write SQL just to look up a customer.
+          </p>
+
+          <h3>Goals</h3>
+          <ul>
+            <li>One natural-language entry point for both unstructured and structured data.</li>
+            <li>Privacy-compliant — no enterprise data leaving our infra.</li>
+            <li>Latency under a second for typical questions, well under five for the heavy ones.</li>
+            <li>Measurable retrieval quality, not just vibes.</li>
+          </ul>
+
+          <h3>Approach</h3>
+          <p>
+            I built the system in three layers — a retrieval layer, a query router, and an inference layer — each one observable and individually swappable.
+          </p>
+          <p>
+            For retrieval I used <strong>hybrid search</strong>: dense embeddings in Qdrant for semantic recall, BM25 for exact-match precision, and a reranker on the top 50 candidates to compress that into the final context. Chunking was tuned per source — long-form PDFs into ~700-token overlapping windows with metadata, tickets into single conversations, and tables ingested with column-aware summaries instead of raw rows.
+          </p>
+          <p>
+            The <strong>query router</strong> is a small classifier in front of the LLM. It decides, given a question, whether to (a) run RAG over documents, (b) route to the Text-to-SQL/NoSQL path, or (c) do both and merge. This sounds simple but it was the highest-leverage decision in the whole system — most failure modes upstream became "we tried to answer a structured question with documents."
+          </p>
+          <p>
+            For inference I deployed <strong>LLaMA Maverick on Oracle Cloud with vLLM</strong>. Self-hosted gave us the privacy guarantees we needed and a predictable cost ceiling. vLLM's paged attention and continuous batching held latency steady as concurrency grew.
+          </p>
+
+          <h3>The boring infrastructure that made it real</h3>
+          <ul>
+            <li><strong>FastAPI microservices</strong> for retrieval, routing, SQL generation and inference — each independently scalable.</li>
+            <li>Token-aware streaming so the UI starts rendering before the model finishes.</li>
+            <li>A <strong>caching layer</strong> keyed on question fingerprint + corpus version — the same question twice in five minutes costs us almost nothing.</li>
+            <li>Structured logs going to a small evaluation harness so we can watch retrieval quality drift over time.</li>
+          </ul>
+
+          <h3>Outcomes</h3>
+          <div class="case__outcomes">
+            <div class="case__outcome"><div class="num tnum">~50%</div><div class="label">lower query latency</div></div>
+            <div class="case__outcome"><div class="num tnum">~35%</div><div class="label">retrieval efficiency lift</div></div>
+            <div class="case__outcome"><div class="num tnum">100%</div><div class="label">on-prem inference</div></div>
+          </div>
+
+          <h3>What I'd do differently</h3>
+          <p>
+            I'd build the query router first and the RAG pipeline second. Routing is the load-bearing piece, and skipping it forces you to make retrieval do work it was never designed for. I'd also invest in evaluation infrastructure before I felt like I needed to — by the time retrieval quality starts drifting, you want a week of historical data, not a fresh notebook.
+          </p>
+
+          <blockquote>
+            The most useful thing a RAG system can do is admit when it shouldn't be doing RAG.
+          </blockquote>
+        </div>
+      </div>
+
+      <nav class="case__next">
+        <a href="/work/">← all work</a>
+        <a href="/work/audio-noise-reduction/">next: audio noise reduction →</a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer wrap">
+    <div class="site-footer__inner">
+      <div>
+        <p class="eyebrow" style="margin-bottom:14px">// elsewhere</p>
+        <div class="links">
+          <a href="https://github.com/kaushvl" rel="me noopener" target="_blank">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/kshl/" rel="me noopener" target="_blank">LinkedIn ↗</a>
+          <a href="mailto:kaushal-shukla@outlook.com">Email</a>
+        </div>
+      </div>
+      <div class="meta">
+        <div>© <span data-year>2026</span> Kaushal Shukla</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/site.js" defer></script>
+</body>
+</html>
